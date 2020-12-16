@@ -1,0 +1,40 @@
+.List {
+    border-style:ridge ;
+    width: 50%;
+    margin-top: 0px;
+    padding-top: 0;
+    list-style: none;
+    margin-left: 410px;
+    margin-bottom: 30px;
+    display: flex;
+    
+  
+}
+
+.List p {
+    margin-left: 30px;
+}
+
+.List p span {
+    position: absolute;
+    right: 540px;
+    cursor: pointer;
+}
+
+
+.List p span button
+{
+    width: 60px;
+    height: 30px;
+}
+
+.Edit {
+    margin-right: 10px;
+}
+
+.Checkbox {
+    position: relative;
+    left: 20px;
+    top:17px;
+}
+
