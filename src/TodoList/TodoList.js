@@ -13,12 +13,12 @@ const TodoList = (props) => {
            <h3 className="Todo">Todo List</h3>
 
            {
-            items.map(item => {
+            items.map((item, index) => {
                 return( 
                     <TodoItem 
                         key={item.id}
                         title={item.title}
-                        checked={item.checked}
+                        checkedItem={props.checked[index]}
                         handleDelete={() => props.handleDelete(item.id)}
                         handleEdit={() => props.handleEdit(item.id)}
                         handleChecked={() => props.handleChecked(item.id)}

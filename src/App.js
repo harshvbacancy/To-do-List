@@ -24,12 +24,20 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    if(this.state.item === "") {
+      alert("Add your item")
+    }
+    else {
+   
     const newItem = {
       id: this.state.id,
-      title: this.state.item,
-    
-
+      title: this.state.item
+  
     };
+
+    const checkedState = [...this.state.checked];
+    checkedState.push(false);
 
     console.log(newItem);
     
@@ -39,10 +47,11 @@ class App extends Component {
         items: updatedItems,
         item:'',
         id: Date.now(),
-        editItem: false
+        editItem: false,
+        checked: [...checkedState]
         
       })
-
+    }
   };
 
   clearList = () => {
@@ -87,8 +96,10 @@ class App extends Component {
 
      this.setState({
         checked:checkedItem
+
     });
-    
+
+   
 
     
     
