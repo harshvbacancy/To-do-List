@@ -13,7 +13,7 @@ const TodoList = (props) => {
            <h3 className="Todo">Todo List</h3>
 
            {
-            items.map((item, index) => {
+            items.map((item, index) => { 
                 return( 
                     <TodoItem 
                         key={item.id}
@@ -30,7 +30,7 @@ const TodoList = (props) => {
             <button
                 type="button" 
                 className="Clear"
-                onClick ={props.clearList}>Clear List</button>
+                onClick ={props.clearList}>Clear the List</button>
        </ul>
        
     )
