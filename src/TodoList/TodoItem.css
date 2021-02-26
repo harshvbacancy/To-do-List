@@ -1,11 +1,11 @@
 .List {
     border-style:ridge ;
     width: 40%;
-    margin-top: 0px;
+    height: 60px;
+    margin: 30px auto;
     padding-top: 0;
     list-style: none;
-    margin-left: 420px;
-    margin-bottom: 30px;
+
     display: flex;
     
   
@@ -16,9 +16,13 @@
 }
 
 .List p span {
-    position: absolute;
-    right: 540px;
+    position: relative;
+    left: 350px;
+    bottom: 20px;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
 }
 
 
@@ -28,9 +32,7 @@
     height: 30px;
 }
 
-.Edit {
-    margin-right: 10px;
-}
+
 
 .Checkbox {
     position: relative;

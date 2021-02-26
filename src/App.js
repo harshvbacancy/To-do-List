@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import TodoForm from './TodoForm/TodoForm';
 import TodoList from './TodoList/TodoList';
+import {connect} from 'react-redux'
+import * as actionTypes from './store/actions';
 import './App.css';
 
 
 class App extends Component {
 
   state = {
-    items:[],
-    id:0,
-    item:"",
-    editItem: false,
     checked: []
   };
 
@@ -24,34 +22,37 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let item= this.state.item
 
-    if(this.state.item === "") {
+    if(item.trim() === "") {
       alert("Add your item")
     }
     else {
-   
-    const newItem = {
-      id: this.state.id,
-      title: this.state.item
+      this.props.onAddedTask(item);
+      this.setState({item: ''})
+    }
+    // const newItem = {
+    //   id: this.state.id,
+    //   title: this.state.item
   
-    };
+    // };
 
-    const checkedState = [...this.state.checked];
-    checkedState.push(false);
+    // const checkedState = [...this.state.checked];
+    // checkedState.push(false);
 
-    console.log(newItem);
+    // console.log(newItem);
     
 
-     const updatedItems = [...this.state.items, newItem] 
-      this.setState({
-        items: updatedItems,
-        item:'',
-        id: Date.now(),
-        editItem: false,
-        checked: [...checkedState]
+    //  const updatedItems = [...this.state.items, newItem] 
+    //   this.setState({
+    //     items: updatedItems,
+    //     item:'',
+    //     id: Date.now(),
+    //     editItem: false,
+    //     checked: [...checkedState]
         
-      })
-    }
+    //   })
+    
   };
 
   clearList = () => {
@@ -60,32 +61,29 @@ class App extends Component {
     });
   };
 
-  handleDelete = id => {
-    const filterdItem = this.state.items.filter(item => item.id !== id)
-    this.setState({
-      items: filterdItem
-    });
-  }
+  // handleDelete = id => {
+  //   const filterdItem = this.state.items.filter(item => item.id !== id)
+  //   this.setState({
+  //     items: filterdItem
+  //   });
+  // }
 
   handleEdit = id => {
-    const filterdItem = this.state.items.filter(item => item.id !== id)
    
-    const selectedItem = this.state.items.find(item => item.id === id)
+    this.props.onEditTask(id)
+    const selectedItem = this.props.itms.find(item => item.id === id)
 
     console.log(selectedItem);
 
     this.setState({
-      items:filterdItem,
-      item:selectedItem.title,
-      editItem:true,
-      id:id
+      item:selectedItem.title
     });
     
   }
 
   handleChecked = id => {
 
-      let itemSelected = [...this.state.items]
+      let itemSelected = [...this.props.itms]
 
       const i = itemSelected.findIndex(item => item.id === id)
       
@@ -98,13 +96,13 @@ class App extends Component {
         checked:checkedItem
 
     });
-
-   
-
-    
     
   }
+ 
+ 
   render() {
+   
+    
     return (
 
       <div className="App">
@@ -113,16 +111,35 @@ class App extends Component {
           item={this.state.item}
           handleChange={this.handleChange}
           handleSubmit= {this.handleSubmit}
-          editItem={this.state.editItem}/>
+          editItem={this.props.editm}/>
         <TodoList 
-          items={this.state.items} 
+          items={this.props.itms} 
           checked={this.state.checked}
           clearList= {this.clearList}
-          handleDelete = {this.handleDelete}
+          handleDelete = {this.props.onDeleteTask}
           handleEdit = {this.handleEdit}
           handleChecked = {this.handleChecked} />
       </div>
     );
   }
 }
-export default App;
+
+const mapStateToProps = state => {
+  return {
+      itms: state.items,
+
+      editm: state.editItem 
+
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddedTask: (item) => dispatch({type: actionTypes.ADD_TASK, item:item}),
+    onDeleteTask: (id) => dispatch({type: actionTypes.DELETE_TASK, Itemid: id}),
+    onEditTask: (id) => dispatch({type: actionTypes.EDIT_TASK, Itemid: id}) 
+  }
+}
+
+ 
+export default connect(mapStateToProps,mapDispatchToProps)(App);
